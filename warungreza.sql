@@ -71,8 +71,8 @@ INSERT INTO users (name, email, password, role) VALUES
 INSERT INTO categories (name) VALUES ('Makanan Utama'),('Minuman'),('Camilan');
 
 INSERT INTO menus (category_id,name,description,price,stock,image) VALUES
-(1,'Nasi Ayam Geprek (Free Es Teh)','Nasi ayam geprek, sambal, dan es teh',18000,50,'https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png?utm_source=id.wikipedia.org&utm_campaign=index&utm_content=original'),
-(1,'Nasi Ayam Bakar Khas Ngawi','Ayam bakar dengan lalapan',28000,30,'https://buckets.sasa.co.id/v1/AUTH_Assets/Assets/p/website/medias/page_medias/nasi_ayam_bakar.jpg'),
+(1,'Ayam Geprek (Free Es Teh)','Nasi ayam geprek, sambal, dan es teh',18000,50,'https://upload.wikimedia.org/wikipedia/commons/2/24/Ayam_geprek.png?utm_source=id.wikipedia.org&utm_campaign=index&utm_content=original'),
+(1,'Ayam Bakar Khas Ngawi','Ayam bakar dengan lalapan',28000,30,'https://buckets.sasa.co.id/v1/AUTH_Assets/Assets/p/website/medias/page_medias/nasi_ayam_bakar.jpg'),
 (1,'Bakmi Goreng Jawa','Mie goreng bumbu khas Jawa',22000,25,'https://assets.unileversolutions.com/v1/55546655.jpg'),
 (1,'Magelangan', 'Nasi goreng campur mie',25000,30,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThtUWpQhouC60lzPXlF8Sx_wJro_2cV7_zOdKs4vSOrDtpUZW45wQ3EOY&s=10'),
 (2,'Es Teh Manis','Teh dingin segar',5000,50,'https://asset.kompas.com/crops/GRGOpdUcySMF4sTvMlSEpJpFcTM=/0x0:4939x3293/750x500/data/photo/2022/09/25/63300cfd403f0.jpg'),
