@@ -19,7 +19,7 @@
     <body class="auth-page login-page p-3">
         <div class="card auth-card login-card shadow">
             <div class="text-center mb-3">
-                <h3 class="fw-bold">Buat Akun Warungreza</h3>
+                <h3 class="fw-bold">Buat Akun Warung Reza</h3>
             </div>
 
             <?php include 'notifikasi.php'; ?>
@@ -29,10 +29,10 @@
                 <input type="text" class="form-control" name="name" required>
 
                 <label class="form-label mt-3"><i class="bi bi-envelope-at-fill"></i> Email</label>
-                <input type="email" class="form-control" name="email" required>
+                <input type="email" class="form-control" name="email" placeholder="nama@email.com" required>
 
                 <label class="form-label mt-3"><i class="bi bi-lock-fill"></i> Password</label>
-                <input type="password" class="form-control" name="password" minlength="6" required>
+                <input type="password" class="form-control" name="password" minlength="8" placeholder="Minimal 8 karakter" required>
 
                 <input type="submit" value="Signup" class="btn btn-brand w-100 mt-3">
             </form>

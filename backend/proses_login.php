@@ -2,8 +2,8 @@
     include __DIR__ . '/koneksi.php';
     session_start();
 
-    $email = htmlspecialchars(trim($_POST['email']));
-    $password = htmlspecialchars(trim($_POST['password']));
+    $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+    $password = isset($_POST['password']) ? htmlspecialchars(trim($_POST['password'])) : '';
 
     if (!empty($email) && !empty($password)) {
         // CEK AKUN ADA ATAU GA DI DATABASE
@@ -50,7 +50,7 @@
             exit();
         }
     } else {
-        header("Location: ../login.php?pesan=data_salah");
+        header("Location: ../login.php?pesan=login_kolom_kosong");
         exit();
     }
 ?>

@@ -3,7 +3,7 @@
     
     //KALO SUDAH LOGIN, LANGSUNG DIARAHKAN SESUAI ROLE. ADMIN KE DASHBOARD ADMIN, PELANGGAN KE TAMPILAN AWAL/MENU
 
-    if(isset($_SESSION['status']) && $_SESSION['status'] = true) {
+    if(isset($_SESSION['status']) && $_SESSION['status'] == true) {
         if ($_SESSION['role'] == 'admin') {
             header("Location: admin.php");
         } else {
@@ -13,8 +13,8 @@
     }
     //AMBIL EMAIL DARI COOKIE, KALAU SEBELUMNYA CENTANG INGAT EMAIL
     $email_tersimpan = '';
-    if (isset($_COOKIE['ingat_email'])) {
-        $email_tersimpan = $_COOKIE['ingat_email'];
+    if (isset($_COOKIE['remember_email'])) {
+        $email_tersimpan = $_COOKIE['remember_email'];
     }
     $tema = 'light';
     if (isset($_COOKIE['tema'])) {
@@ -27,7 +27,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login - WarungReza</title>
+    <title>Login - Warung Reza</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css">
@@ -44,7 +44,7 @@
 
         <form method="POST" action="backend/proses_login.php">
             <label class="form-label"><i class="bi bi-envelope-at-fill"></i> Email</label>
-            <input type="email" class="form-control" name="email" value="<?php echo htmlspecialchars($email_tersimpan); ?>" required>
+            <input type="email" class="form-control" name="email" placeholder="nama@email.com" value="<?php echo htmlspecialchars($email_tersimpan); ?>" required>
 
             <label class="form-label mt-3"><i class="bi bi-lock-fill"></i> Password</label>
             <input type="password" class="form-control" name="password" required>

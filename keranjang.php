@@ -68,11 +68,11 @@
                                 </td>
                                 <td>Rp <?php echo $row['harga']; ?></td>
                                 <td>
-                                    <form method="POST" action="backend/proses_keranjang.php" class="d-flex gap-1">
+                                    <form method="POST" action="backend/proses_keranjang.php" class="d-flex gap-1 form-perbarui" onsubmit="return konfirmasiPerbarui(this);">
                                         <input type="hidden" name="aksi" value="perbarui">
                                         <input type="hidden" name="id_cart" value="<?php echo $row['id']; ?>">
-                                        <input type="number" min="0" name="qty" value="<?php echo $row['qty']; ?>" class="form-control form-control-sm" style="width:80px">
-                                        <button class="btn btn-sm btn-outline-secondary">Perbarui</button>
+                                        <input type="number" min="0" step="1" required name="qty" value="<?php echo $row['qty']; ?>" data-qty-awal="<?php echo (int)$row['qty']; ?>" class="form-control form-control-sm qty-keranjang" style="width:80px">
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary" disabled>Perbarui</button>
                                     </form>
                                 </td>
                                 <td>Rp <?php echo $row['subtotal']; ?></td>
@@ -116,7 +116,6 @@
                     </select>
                 </div>
                 <div class="col-12">
-                    <!-- type="button" : hanya membuka pop-up verifikasi, belum mengirim form -->
                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalVerifikasi">
                         Konfirmasi Pesanan
                     </button>
@@ -125,7 +124,7 @@
         <?php endif; ?>
     </div>
 
-    <!-- POP-UP VERIFIKASI: tanya dulu sebelum pesanan dibuat -->
+    <!--POP-UP VERIFIKASI -->
     <div class="modal fade" id="modalVerifikasi" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -145,7 +144,7 @@
         </div>
     </div>
 
-    <!-- POP-UP PEMBAYARAN (simulasi): muncul otomatis setelah pesanan QRIS/Transfer dibuat -->
+    <!-- POP-UP PEMBAYARAN -->
     <?php if ($bayar) : ?>
         <div class="modal fade" id="modalBayar" data-bs-backdrop="static" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -179,7 +178,41 @@
 
 <?php include 'footer.php'; ?>
     <script>
-        // Kolom nomor meja hanya tampil untuk dine-in
+        // Tombol Perbarui
+        document.querySelectorAll('.form-perbarui').forEach(function (form) {
+            const inputQty = form.querySelector('.qty-keranjang');
+            const tombolPerbarui = form.querySelector('button[type="submit"]');
+            const qtyAwal = Number(inputQty.dataset.qtyAwal);
+
+            function cekPerubahanQty() {
+                if (inputQty.value === '' || Number(inputQty.value) !== qtyAwal) {
+                    tombolPerbarui.classList.remove('btn-outline-secondary');
+                    tombolPerbarui.classList.add('btn-success');
+                    tombolPerbarui.disabled = false;
+                } else {
+                    tombolPerbarui.classList.remove('btn-success');
+                    tombolPerbarui.classList.add('btn-outline-secondary');
+                    tombolPerbarui.disabled = true;
+                }
+            }
+
+            inputQty.addEventListener('input', cekPerubahanQty);
+        });
+
+        // Jumlah 0 (hapus)
+        function konfirmasiPerbarui(form) {
+            const inputQty = form.querySelector('.qty-keranjang');
+            if (Number(inputQty.value) === 0) {
+                if (!confirm('Batalkan menu ini dari keranjang?')) {
+                    inputQty.value = inputQty.dataset.qtyAwal;
+                    inputQty.dispatchEvent(new Event('input'));
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Kolom nomor meja 
         const orderType = document.getElementById('orderType');
         function aturMeja() {
             if (orderType) {
@@ -195,7 +228,7 @@
         }
         aturMeja();
 
-        // Buka pop-up pembayaran otomatis
+        // pop-up pembayaran otomatis
         <?php if ($bayar) : ?>
         new bootstrap.Modal(document.getElementById('modalBayar')).show();
         <?php endif; ?>

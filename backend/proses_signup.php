@@ -1,9 +1,10 @@
 <?php
     include __DIR__ . '/koneksi.php';
 
-    $nama = htmlspecialchars(trim($_POST['name']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $password = htmlspecialchars(trim($_POST['password']));
+    $nama = isset($_POST['name']) ? htmlspecialchars(trim($_POST['name'])) : '';
+    $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+    $password_asli = isset($_POST['password']) ? trim($_POST['password']) : '';
+    $password = htmlspecialchars($password_asli);
 
     
     //CEK KALO GA DI ISI
@@ -11,11 +12,13 @@
         header("Location: ../sign_up.php?pesan=data_tidak_valid");
         exit();
     }
+    
     //MENGHINDARI EMAIL YANG SAMA SIGN UP LAGI, JADI EMAIL YANG SAMA TIDAK BISA TERPAKAI LAGI
     $cek_query = mysqli_query($koneksi, "SELECT * FROM users WHERE email = '$email'");
 
     if (mysqli_num_rows($cek_query) > 0) {
         header("Location: ../sign_up.php?pesan=email_terpakai");
+        exit();
     } else {
         // AKUN BARU DIBUAT ROLENYA HANYA PELANGGAN, ADMIN CUMA SATU
         $query = mysqli_query($koneksi,

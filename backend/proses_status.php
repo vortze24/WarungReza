@@ -8,9 +8,9 @@
         exit();
     }
 
-    $id = $_POST['id'];
+    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
     $query = mysqli_query($koneksi, "SELECT status FROM orders WHERE id = $id");
-    $o = mysqli_fetch_assoc($query);
+    $o = $query ? mysqli_fetch_assoc($query) : false;
 
     $status_baru = '';
     if ($o['status'] == 'baru') {
@@ -22,9 +22,15 @@
     }
 
     if ($status_baru != '') {
-        mysqli_query($koneksi, "UPDATE orders SET status = '$status_baru' WHERE id = $id");
+        $hasil = mysqli_query($koneksi, "UPDATE orders SET status = '$status_baru' WHERE id = $id");
+    } else {
+        $hasil = false;
     }
 
-    header("Location: ../admin_pesanan.php?pesan=status_diubah");
+    if ($hasil && mysqli_affected_rows($koneksi) > 0) {
+        header("Location: ../admin_pesanan.php?pesan=status_diubah");
+    } else {
+        header("Location: ../admin_pesanan.php?pesan=data_tidak_valid");
+    }
     exit();
 ?>

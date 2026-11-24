@@ -41,7 +41,7 @@ nantinya diproses di proses_batal.php -->
 
                 <!-- INFORMASI REFUND KALAU SUDAH DIBAYAR (QRIS ATAU TRANSFER) -->
                 <div id="infoRefund" class="alert alert-info d-none mb-0">
-                    Pesanan ini sudah dibayar. Dana akan dikembalikan.
+                    Pesanan ini sudah dibayar. Dana akan dikembalikan. 
                     <div class="form-check mt-2">
                         <input type="checkbox" class="form-check-input" id="batalSetuju">
                         <label class="form-check-label" for="batalSetuju">Saya memahami dan setuju</label>

@@ -9,8 +9,9 @@
     }
 
     $kondisi = '';
-        if ($kat != 0) {
-        $kondisi = "WHERE m.category_id = " . intval($kat);
+    if ($kat != 0) {
+        $kat = (int)$kat;
+        $kondisi = "WHERE m.category_id = $kat";
     }
 
     $kategori = mysqli_query($koneksi, "SELECT * FROM categories");

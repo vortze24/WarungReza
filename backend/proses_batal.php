@@ -17,9 +17,9 @@
         $balik = '../pesanan.php';
     }
 
-    $id = $_POST['id'];
-    $alasan = htmlspecialchars(trim($_POST['alasan']));
-    $lain = htmlspecialchars(trim($_POST['alasan_lain']));
+    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+    $alasan = isset($_POST['alasan']) ? htmlspecialchars(trim($_POST['alasan'])) : '';
+    $lain = isset($_POST['alasan_lain']) ? htmlspecialchars(trim($_POST['alasan_lain'])) : '';
 
     //MEWAJIBKAN ALASAN DIISI KALO PILIH "Alasan lainnya"
     if (empty($alasan) || ($alasan == 'Alasan lainnya' && empty($lain))) {
@@ -55,8 +55,9 @@
          WHERE id = $id");
 
     // STOK MENU DIKEMBALIKAN LAGI SETELAH DIBATALKAN
-    mysqli_query($koneksi,
+    $hasil_stok = mysqli_query($koneksi,
         "UPDATE menus m JOIN order_details d ON d.menu_id = m.id SET m.stock = m.stock + d.qty WHERE d.order_id = $id");
+    if (!$hasil_stok) { header("Location: $balik?pesan=data_tidak_valid"); exit(); }
 
     header("Location: $balik?pesan=dibatalkan");
     exit();
